@@ -10,7 +10,7 @@ interface SuratCintaProps {
 export default function SuratCinta({ partnerName, letterContent }: SuratCintaProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const defaultLetter = "Hai sayangku, Yudia tercinta.\n\nSelamat ulang tahun ya manis! Hari ini adalah hari favoritku karena di hari inilah kamu dilahirkan ke dunia. Aku sangat bersyukur bisa memilikimu di sisiku.\n\nTerima kasih ya sudah selalu sabar, pengertian, dan selalu menghujani aku dengan senyum manis kamu yang ga pernah gagal bikin hari-hariku jadi jauh lebih cerah.\n\nSemoga di usia yang baru ini kamu selalu sehat, bahagia, dan semua impian indahmu satu per satu terwujud. Ingat ya, aku bakal selalu ada di sini untuk mendukungmu dan berjalan bersamamu melewati setiap musim kehidupan.\n\nAku sayang kamu, sekarang, besok, dan selamanya.";
+  const defaultLetter = "Hai dedekk, Yudia imyutt.\n\nSelamat ulang tahun yg ke 19 yaaw cantikks! Hari ini adalah hari yang paling abangg tunggu karena di hari inilah dedekk dilahirkan ke dunia dan di hari ini pula abangg bisa mengenal dunia abangg. Abangg sangat bersyukur bisa terus barengg ma dedekk dan selalu punya waktu untuk terus bersama-sama.\n\nTak terasaa tahun lalu abangg ngucapin lewat ig karena lom punya kenangan barengg, ehh tahun ini ngucapinn karena punya banyaa banyaaaa bangett kenangan bareng dedekk. Kita sudaa 1 tahun kenal dan abangg tidak pernah sekalipun bosan dengan paras cantikk dedekk, abangg harap dedekk always cakepp yaaw di sanaa dan selalu menjadi kebanggaan abangg.\n\nSemoga di usia yang baru ini dedekk selalu sehat, bahagiaa, cakepps serta kyowokkk dan semua impian ataupun harapan-harapan dedekk akan terwujud satu per satu. Dedekk ingat yaa, abang bakal berusaha untukk selalu ada di dekat dedekk kapanpun dedekk butuh dan syapp jalan-jalan bareng dedekk melewati setiap musim & setiap negara, asekkk.\n\nAbangg bangga bangett bisa kenal dedekk, menjadi bagian & cerita dedekk, serta menjadi tempat paling nyamann untuk cerita kita, memang cerita kita takk seindah di layar kaca, tapi klo bowlee jujur, cerita kitaa daa nyaingin dilan ma milea, azekkk.\n\nHappy birthday ya cantikss, wopyuuu so muchh, sayang dedekk, wish u all the best. 🤍";
 
   const content = letterContent || defaultLetter;
 
@@ -24,14 +24,14 @@ export default function SuratCinta({ partnerName, letterContent }: SuratCintaPro
 
         <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-blue-600 mb-3.5 block flex items-center justify-center gap-1.5 bg-blue-50 w-fit mx-auto px-4 py-1.5 rounded-full border border-blue-100">
           <Sparkles size={12} className="text-blue-500" />
-          <span>Surat Spesial Ulang Tahun</span>
+          <span>Surat Spesial Buat Dedekk</span>
         </span>
-        <h3 className="font-sans text-xl sm:text-2xl font-black text-slate-800 tracking-tight leading-snug mb-3 flex items-center justify-center gap-2">
-          <span>Untaian Kata Dari Lubuk Hati</span>
+        <h3 className="font-display text-xl sm:text-2xl font-black text-slate-800 tracking-tight leading-snug mb-3 flex items-center justify-center gap-2">
+          <span>Pesan Tulus Dari Lubuk Hati</span>
           <Mail size={20} className="text-blue-500 inline" />
         </h3>
         <p className="text-xs text-slate-500 font-semibold leading-relaxed max-w-sm mx-auto mb-8">
-          Ketuk amplop di bawah ini untuk membuka lembar pesan yang kutulis khusus untuk hari ulang tahunmu.
+          Sentuh amplop manis di bawah ini untuk melihat pesan spesial yang sudah abang siapkan khusus untuk dedekk.
         </p>
 
         {/* Envelope Animation Container */}
@@ -88,10 +88,10 @@ export default function SuratCinta({ partnerName, letterContent }: SuratCintaPro
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: 30 }}
                 transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                className="relative bg-[#FFFBEB] rounded-[32px] w-full max-w-lg max-h-[85vh] shadow-[0_20px_55px_rgba(0,0,0,0.15)] border border-amber-200/50 p-6 sm:p-8 flex flex-col z-10 text-left overflow-hidden"
+                className="relative bg-white paper-texture rounded-[32px] w-full max-w-lg max-h-[85vh] shadow-[0_25px_60px_rgba(0,0,0,0.2)] border border-amber-200 p-6 sm:p-8 flex flex-col z-10 text-left overflow-hidden"
               >
-                {/* Decorative vintage notebook background lines */}
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none select-none bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                {/* Decorative side margin line for letter paper */}
+                <div className="absolute left-10 top-0 bottom-0 w-[2px] bg-red-200/40 z-10"></div>
 
                 {/* Ribbon detail */}
                 <div className="flex justify-between items-center border-b border-amber-200/70 pb-3 mb-5 shrink-0 relative z-10">
@@ -116,7 +116,7 @@ export default function SuratCinta({ partnerName, letterContent }: SuratCintaPro
                 <div className="pt-4 mt-5 border-t border-amber-200/70 text-right shrink-0 relative z-10">
                   <p className="text-xs font-black text-slate-500 italic">Ditulis dengan sepenuh hati,</p>
                   <p className="text-sm font-black text-[#2563EB] mt-1.5 flex items-center justify-end gap-1">
-                    <span>Dari Adit untuk Yudia</span>
+                    <span>Dari abangg untuk dedekk</span>
                     <Heart size={14} fill="currentColor" className="text-blue-500" />
                   </p>
                 </div>

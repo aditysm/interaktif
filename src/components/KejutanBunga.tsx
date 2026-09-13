@@ -67,14 +67,13 @@ export default function KejutanBunga({ gdriveUrl }: KejutanBungaProps) {
               className="flex flex-col items-center"
             >
               <span className="text-xs uppercase tracking-widest font-black text-blue-600 mb-3 flex items-center gap-1.5 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
-                <Award size={13} className="text-blue-500" /> Ada Kado Spesial Buat Yudia!
+                <Award size={13} className="text-blue-500" /> Sekuntum Kasih Buat Dedekk
               </span>
-              <h2 className="font-sans text-2xl sm:text-3xl font-black text-slate-800 mb-4 tracking-tight flex items-center justify-center gap-2">
-                <span>Mawar Biru Kejutan</span>
-                <Sparkles size={22} className="text-blue-500 inline" />
+              <h2 className="font-display text-2xl sm:text-4xl font-black text-slate-800 mb-4 tracking-tight">
+                Mawar Biru Kejutan
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 max-w-sm mb-12 font-bold leading-relaxed">
-                Ada sekuntum mawar biru spesial di bawah ini. Coba sentuh kelopak bunganya perlahan, dan lihat kejutan manis apa yang akan mekar untuk Yudia!
+              <p className="text-xs sm:text-sm text-slate-500 max-w-sm mb-12 font-bold leading-relaxed italic">
+                "Ada sekuntum mawar biru yang menanti sentuhan dedekk. Coba dekap kelopaknya, dan biarkan keajaiban manis mekar khusus untuk dedekk..."
               </p>
 
               {/* Highly Animated Interactive Flower Button */}

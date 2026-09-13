@@ -53,9 +53,9 @@ export default function Gatekeeper({ questions, onPassed }: GatekeeperProps) {
 
     questions.forEach((q, idx) => {
       const userAnswer = answers[idx].trim().toLowerCase().replace(/\s+/g, " ");
-      const correctAnswer = q.answer.trim().toLowerCase().replace(/\s+/g, " ");
+      const correctAnswers = q.answer.split(",").map(ans => ans.trim().toLowerCase().replace(/\s+/g, " "));
 
-      if (userAnswer !== correctAnswer) {
+      if (!correctAnswers.includes(userAnswer)) {
         updatedErrors[idx] = getRandomError();
         hasError = true;
       } else {
@@ -67,7 +67,7 @@ export default function Gatekeeper({ questions, onPassed }: GatekeeperProps) {
 
     if (!hasError) {
       setIsUnlocked(true);
-      // Wait for the lock animation to finish before launching onPassed
+      // Wait for the animation to finish before launching onPassed
       setTimeout(() => {
         onPassed();
       }, 1200);
@@ -99,19 +99,14 @@ export default function Gatekeeper({ questions, onPassed }: GatekeeperProps) {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-14 h-14 rounded-full flex items-center justify-center shadow-md mb-4 bg-gradient-to-br from-blue-500 to-sky-400 text-white"
           >
-            {isUnlocked ? <Unlock size={22} /> : <Lock size={22} />}
+            <Gift size={22} />
           </motion.div>
 
-          <span className="text-[11px] uppercase tracking-widest font-black text-blue-600 mb-1.5 inline-flex items-center gap-1.5 bg-blue-50 px-3.5 py-1 rounded-full border border-blue-100">
-            <Sparkles size={11} className="text-blue-500" />
-            <span>Verifikasi Khusus</span>
-          </span>
-
           <h2 className="font-sans text-2xl sm:text-3xl font-black text-slate-800 tracking-tight flex items-center gap-2 justify-center">
-            Apakah ini Yudia?
+            Apakah ini Dedekk?
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-md font-bold leading-relaxed">
-            Hai Yudia! Sebelum membuka website spesial hari ulang tahunmu, yuk jawab dulu 3 pertanyaan tentang kenangan kita di bawah ini.
+            Halloww! Sebelum lanjut, yuk jawab dulu 3 pertanyaan tentang kenangan kita di bawah ini.
           </p>
         </div>
 

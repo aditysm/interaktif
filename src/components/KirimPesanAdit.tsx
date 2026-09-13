@@ -7,7 +7,7 @@ export default function KirimPesanAdit() {
   const [sudahTerkirim, setSudahTerkirim] = useState(false);
 
   const presetMessages = [
-    "Makasih banyak ya Adit buat kejutan dan ucapannya!",
+    "Makasih banyak ya abangg buat kejutan dan ucapannya!",
     "Suka banget sama website dan kado ulang tahunnya!",
     "Semoga doa-doa baiknya kembali ke kita berdua juga ya.",
     "Kangen, nanti kita luangkan waktu bareng ya!",
@@ -43,13 +43,13 @@ export default function KirimPesanAdit() {
         <div className="text-center mb-10">
           <span className="text-xs uppercase tracking-widest font-black text-blue-600 mb-2.5 inline-flex items-center gap-1.5 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
             <MessageCircle size={13} className="text-blue-500" />
-            <span>Kirim Pesan ke Adit Lagi</span>
+            <span>Kirim Kabar ke Abang</span>
           </span>
-          <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 tracking-tight">
-            Kirim Pesan ke Adit Lagi
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 tracking-tight">
+            Cerita ke Abang, Yuk?
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-bold leading-relaxed mt-3 max-w-md mx-auto">
-            Tulis pesan, tanggapan, atau apapun yang ingin Yudia sampaikan ke Adit. Pesan ini akan langsung dialihkan ke WhatsApp Adit.
+          <p className="text-xs sm:text-sm text-slate-500 font-bold leading-relaxed mt-3 max-w-md mx-auto italic">
+            "Apapun yang Dedekk rasakan, tuliskan saja di sini ya. Pesan manis ini akan langsung meluncur ke WhatsApp abang..."
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export default function KirimPesanAdit() {
               <textarea
                 value={pesan}
                 onChange={(e) => setPesan(e.target.value)}
-                placeholder="Tulis pesan atau cerita yang ingin kamu sampaikan ke Adit di sini..."
+                placeholder="Tulis pesan atau cerita yang ingin kamu sampaikan ke abangg di sini..."
                 rows={7}
                 className="w-full px-4 py-3.5 rounded-2xl border border-blue-200 text-sm font-semibold focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-slate-50/40 text-slate-800 placeholder-slate-400 transition-all resize-y min-h-[160px] leading-relaxed shadow-inner"
                 required
@@ -96,7 +96,7 @@ export default function KirimPesanAdit() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
               <span className="text-[11px] text-slate-400 font-bold flex items-center gap-1">
                 <Heart size={12} className="text-blue-500" />
-                <span>Pesan terhubung langsung ke kontak WhatsApp Adit</span>
+                <span>Pesan terhubung langsung ke kontak WhatsApp abangg</span>
               </span>
 
               <motion.button
@@ -110,7 +110,7 @@ export default function KirimPesanAdit() {
                     : "bg-slate-300 cursor-not-allowed"
                 }`}
               >
-                <span>Kirim ke Adit</span>
+                <span>Kirim ke abangg</span>
                 <Send size={14} />
               </motion.button>
             </div>
@@ -124,7 +124,7 @@ export default function KirimPesanAdit() {
               className="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-2"
             >
               <CheckCircle2 size={15} className="text-emerald-500 shrink-0" />
-              <span>Jendela WhatsApp sedang dibuka. Pastikan pesan terkirim ke Adit ya!</span>
+              <span>Jendela WhatsApp sedang dibuka. Pastikan pesan terkirim ke abangg ya!</span>
             </motion.div>
           )}
 

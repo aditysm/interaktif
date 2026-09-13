@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Calendar, Heart, Sparkles, X, Quote, Camera, MapPin, Navigation } from "lucide-react";
+import { Calendar, Heart, Sparkles, X, Quote, Camera, Image as ImageIcon } from "lucide-react";
 import { MemoryCard } from "../types";
 
 interface GaleriKenanganProps {
@@ -10,244 +10,185 @@ interface GaleriKenanganProps {
 export default function GaleriKenangan({ memories }: GaleriKenanganProps) {
   const [selectedMemoryIdx, setSelectedMemoryIdx] = useState<number | null>(null);
 
+  // Helper to generate "random-ish" rotation and positions for the collage
+  // We use fixed seeds based on index to ensure consistency across renders
+  const getRandomStyle = (idx: number) => {
+    const rotations = [-4, -3, -2, 2, 3, 4];
+    const rotation = rotations[idx % rotations.length];
+    
+    // Horizontal and vertical offsets for organic feel
+    const xOffsets = [-15, -10, 0, 10, 15];
+    const yOffsets = [-20, -10, 0, 10, 20];
+    const x = xOffsets[idx % xOffsets.length];
+    const y = yOffsets[idx % yOffsets.length];
+
+    return { rotation, x, y };
+  };
+
   return (
     <section 
       id="galeri-section"
-      className="py-24 px-4 sm:px-6 md:px-12 bg-gradient-to-b from-sky-50 via-white to-blue-50 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 md:px-12 bg-white relative overflow-hidden"
     >
-      {/* Decorative Floating Accents */}
-      <div className="absolute top-20 left-10 text-blue-400/10 pointer-events-none -z-10">
-        <Sparkles size={140} className="opacity-40 animate-pulse" />
-      </div>
-      <div className="absolute bottom-20 right-10 text-pink-400/10 pointer-events-none -z-10">
-        <Heart size={160} className="opacity-40" />
-      </div>
-
-      <div className="max-w-5xl mx-auto">
+      {/* Background Soft Gradients */}
+      <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-blue-50/30 to-transparent pointer-events-none"></div>
+      
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-20 max-w-xl mx-auto">
-          <span className="text-xs sm:text-sm uppercase tracking-widest font-black text-blue-600 mb-2.5 inline-flex items-center gap-1.5 bg-blue-50 w-fit mx-auto px-4 py-1.5 rounded-full border border-blue-200/50">
-            <Camera size={13} className="text-blue-500" />
-            <span>Galeri Momen Spesial Yudia</span>
+        <div className="text-center mb-16 max-w-2xl mx-auto relative z-10">
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-black text-blue-500 mb-4 block">
+            Kumpulan Momen Berharga
           </span>
-          <h2 className="font-sans text-2xl sm:text-4xl font-black text-slate-800 tracking-tight flex items-center justify-center gap-2">
-            <span>Peta Kenangan Indah</span>
-            <MapPin size={26} className="text-blue-500 inline" />
+          <h2 className="font-display text-3xl sm:text-5xl font-black text-slate-800 tracking-tighter mb-4">
+            Kolase Kenangan Indah
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed mt-3">
-            19 foto dan momen berharga yang tersimpan rapi untuk merayakan perjalanan manis Yudia. Telusuri setiap langkah kenangan indah di bawah ini.
+          <p className="text-sm text-slate-500 font-medium leading-relaxed italic">
+            "Setiap foto bercerita, setiap tawa bertahta, dan setiap momen bersama Yudia adalah harta yang paling berharga..."
           </p>
         </div>
 
-        {/* Vertical Journey Route / Road Line */}
-        <div className="relative">
-          {/* Connecting Road Line (Main Route) */}
-          <div 
-            id="journey-line"
-            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 md:-translate-x-1/2 bg-gradient-to-b from-blue-300 via-sky-400 to-blue-200 rounded-full"
-            style={{ 
-              backgroundImage: "repeating-linear-gradient(to bottom, transparent, transparent 10px, #fff 10px, #fff 20px), linear-gradient(to bottom, #93C5FD, #38BDF8, #93C5FD)",
-              backgroundBlendMode: "difference"
-            }}
-          />
+        {/* Collage Grid - Organic Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 items-center px-2">
+          {memories.map((m, idx) => {
+            const { rotation, x, y } = getRandomStyle(idx);
+            
+            return (
+              <motion.div
+                key={m.id}
+                initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: rotation }}
+                viewport={{ once: true, margin: "-50px" }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  rotate: 0, 
+                  zIndex: 20,
+                  transition: { duration: 0.3 } 
+                }}
+                className="relative group cursor-pointer"
+                style={{ x, y }}
+                onClick={() => setSelectedMemoryIdx(idx)}
+              >
+                {/* Washi Tape Accent */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-blue-100/40 backdrop-blur-sm border border-blue-200/20 rotate-[-2deg] z-20 rounded-sm opacity-60 group-hover:opacity-100 transition-opacity" />
 
-          {/* Timeline Nodes & Paths */}
-          <div className="space-y-16 relative">
-            {memories.map((m, idx) => {
-              const isEven = idx % 2 === 0;
-              
-              return (
-                <div key={m.id} className="relative flex flex-col md:flex-row items-stretch md:justify-between">
-                  {/* Left Spacer for Odd items / Left Card for Even items */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.7, delay: Math.min(idx * 0.05, 0.2), ease: "easeOut" }}
-                    className={`w-full md:w-[45%] flex ${isEven ? "justify-end" : "justify-start md:order-last"}`}
-                  >
-                    <motion.div
-                      whileHover={{ y: -6, scale: 1.01 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                      onClick={() => setSelectedMemoryIdx(idx)}
-                      className="w-full bg-white/90 backdrop-blur-md p-4 pb-5 rounded-2xl shadow-[0_10px_35px_rgba(59,130,246,0.06)] hover:shadow-[0_20px_45px_rgba(59,130,246,0.12)] border border-blue-100 cursor-pointer transition-all duration-500 ease-out group flex flex-col justify-between"
-                    >
-                      {/* Polaroid-style Image Container */}
-                      <div className="w-full overflow-hidden rounded-xl bg-blue-50/50 relative aspect-[4/3] flex items-center justify-center border border-blue-100">
-                        {m.imageUrl && m.imageUrl.trim() !== "" ? (
-                          <img
-                            src={m.imageUrl}
-                            alt={m.title}
-                            referrerPolicy="no-referrer"
-                            loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center text-blue-400/75 gap-1">
-                            <Camera size={28} />
-                            <span className="text-[10px] font-bold text-blue-500">Momen Indah</span>
-                          </div>
-                        )}
-                        {/* Interactive Accent Map Pin Overlay */}
-                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-1.5 rounded-full text-blue-500 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <MapPin size={14} className="animate-bounce" />
-                        </div>
+                {/* Polaroid Frame */}
+                <div className="bg-white p-4 pb-12 shadow-[0_10px_40px_rgba(30,58,138,0.04)] border border-slate-100 rounded-sm transition-shadow group-hover:shadow-[0_20px_50px_rgba(30,58,138,0.1)]">
+                  {/* Image Holder */}
+                  <div className="aspect-square w-full bg-slate-50 overflow-hidden relative border border-slate-50">
+                    {m.imageUrl ? (
+                      <img
+                        src={m.imageUrl}
+                        alt={m.title}
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center text-slate-300">
+                        <ImageIcon size={32} />
                       </div>
-
-                      {/* Content Area */}
-                      <div className="mt-4 text-left">
-                        <div className="flex items-center gap-1.5 text-[10px] font-black text-blue-500 mb-1.5 uppercase tracking-wider">
-                          <Calendar size={11} />
-                          <span>{m.date}</span>
-                        </div>
-                        <h3 className="font-sans text-sm sm:text-base font-black text-slate-800 group-hover:text-blue-600 transition-colors duration-300 mb-1">
-                          {m.title}
-                        </h3>
-                        <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed font-semibold italic">
-                          &ldquo;{m.caption}&rdquo;
-                        </p>
-
-                        {/* Custom Journey Button */}
-                        <div className="mt-4 flex items-center justify-between">
-                          <span className="text-[10px] font-black text-slate-400">
-                            Pemberhentian {idx + 1}
-                          </span>
-                          <span className="inline-flex items-center gap-1 text-[10px] font-black tracking-wider uppercase text-blue-500 group-hover:text-blue-600 transition-colors">
-                            Buka Kenangan
-                            <Navigation size={10} className="rotate-45" />
-                          </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-
-                  {/* Central Node Anchor */}
-                  <div className="absolute left-4 md:left-1/2 top-10 -translate-x-1/2 flex items-center justify-center z-10 pointer-events-none">
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 180, delay: 0.15 }}
-                      className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-sky-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.5)] border-4 border-white"
-                    >
-                      <motion.div
-                        animate={{ scale: [1, 1.25, 1] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: idx * 0.4 }}
-                        className="flex items-center justify-center"
-                      >
-                        <Heart size={12} fill="white" className="text-white" />
-                      </motion.div>
-                    </motion.div>
+                    )}
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-colors duration-300" />
                   </div>
 
-                  {/* Empty space filler for desktop alignment */}
-                  <div className="hidden md:block w-[45%]" />
+                  {/* Caption under photo (Handwritten style feel) */}
+                  <div className="mt-4 px-1">
+                    <h3 className="text-sm font-black text-slate-800 line-clamp-1">{m.title}</h3>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Floating Hearts for extra romance on hover */}
+                <AnimatePresence>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    className="absolute -top-2 -right-2 pointer-events-none"
+                  >
+                    <Heart size={16} fill="#F43F5E" className="text-rose-500 animate-pulse" />
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* Empty state placeholder if needed */}
+        {memories.length === 0 && (
+          <div className="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
+            <ImageIcon size={40} className="mx-auto text-slate-300 mb-4" />
+            <p className="text-slate-500 font-bold">Belum ada foto kenangan yang ditambahkan.</p>
+          </div>
+        )}
       </div>
 
-      {/* --- EXQUISITE LIGHT THEMED LIGHTBOX MODAL --- */}
+      {/* --- Lightbox Modal (Romantically Enhanced) --- */}
       <AnimatePresence>
         {selectedMemoryIdx !== null && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Soft backdrop blur */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedMemoryIdx(null)}
-              className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             />
 
-            {/* Modal Box */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative bg-white/95 backdrop-blur-3xl rounded-3xl overflow-hidden w-full max-w-2xl max-h-[90vh] shadow-[0_25px_55px_rgba(30,58,138,0.15)] border border-blue-100 flex flex-col z-10 text-slate-800"
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-[40px] shadow-2xl border border-blue-50 overflow-hidden flex flex-col md:flex-row z-10"
             >
-              {/* Close Button */}
               <button
                 onClick={() => setSelectedMemoryIdx(null)}
-                className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 cursor-pointer transition-colors"
+                className="absolute top-6 right-6 z-30 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-md flex items-center justify-center text-slate-600 hover:text-rose-500 transition-colors"
               >
-                <X size={16} />
+                <X size={20} />
               </button>
 
-              <div className="overflow-y-auto p-6 sm:p-8 flex flex-col gap-6">
-                {/* Double Polaroid Layout */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Image 1 */}
-                  <div className="bg-slate-50 p-3 pb-6 rounded-xl shadow-sm border border-slate-100 rotate-[-1deg]">
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center border border-slate-200">
-                      {memories[selectedMemoryIdx]?.imageUrl && memories[selectedMemoryIdx].imageUrl.trim() !== "" ? (
-                        <img
-                          src={memories[selectedMemoryIdx].imageUrl}
-                          alt="Kenangan pertama"
-                          referrerPolicy="no-referrer"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Camera size={24} className="text-blue-400" />
-                      )}
-                    </div>
-                    <p className="text-[10px] text-center text-blue-600 font-bold mt-2">Momen Terindah</p>
-                  </div>
+              {/* Large Image Side */}
+              <div className="w-full md:w-3/5 bg-slate-50 relative flex items-center justify-center">
+                <img
+                  src={memories[selectedMemoryIdx].imageUrl}
+                  alt={memories[selectedMemoryIdx].title}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-                  {/* Image 2 (Dynamic loop fallback to next) */}
-                  <div className="bg-slate-50 p-3 pb-6 rounded-xl shadow-sm border border-slate-100 rotate-[1.5deg]">
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center border border-slate-200">
-                      {memories[(selectedMemoryIdx + 1) % memories.length]?.imageUrl ? (
-                        <img
-                          src={memories[(selectedMemoryIdx + 1) % memories.length].imageUrl}
-                          alt="Sudut pandang kedua"
-                          referrerPolicy="no-referrer"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Camera size={24} className="text-blue-400" />
-                      )}
-                    </div>
-                    <p className="text-[10px] text-center text-blue-600 font-bold mt-2">Momen Pelengkap</p>
-                  </div>
+              {/* Content Side */}
+              <div className="w-full md:w-2/5 p-8 sm:p-12 flex flex-col justify-center bg-white relative">
+                {/* Decorative accent */}
+                <div className="absolute top-0 right-0 p-8 opacity-5">
+                  <Sparkles size={100} className="text-blue-500" />
                 </div>
 
-                {/* Poem and Message Area */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <div className="flex items-center gap-1.5 text-blue-600">
-                      <Heart size={18} fill="currentColor" className="text-blue-500" />
-                      <span className="text-xs uppercase tracking-widest font-black text-slate-700">Untaian Puisi & Catatan</span>
-                    </div>
-                    <div className="text-[10px] sm:text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full flex items-center gap-1 border border-blue-100">
-                      <Calendar size={12} />
-                      <span>{memories[selectedMemoryIdx].date}</span>
-                    </div>
-                  </div>
-
-                  <h3 className="font-sans text-xl font-black text-slate-800">
+                <div className="relative z-10">
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-slate-800 mb-6 leading-tight">
                     {memories[selectedMemoryIdx].title}
                   </h3>
 
-                  <div className="relative bg-slate-50 rounded-2xl p-5 border border-slate-100 italic font-bold text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    <Quote size={28} className="absolute -top-3 -left-1 text-blue-200 opacity-50" />
-                    <p className="pl-4 relative z-10 whitespace-pre-wrap">
-                      {memories[selectedMemoryIdx].caption || "Tulis puisi manis atau cerita kenangan indahmu di sini..."}
+                  <div className="relative mb-10">
+                    <Quote size={40} className="absolute -top-6 -left-4 text-blue-50 opacity-20" />
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium italic relative z-10">
+                      "{memories[selectedMemoryIdx].caption}"
                     </p>
                   </div>
-                </div>
 
-                {/* Action button */}
-                <button
-                  onClick={() => setSelectedMemoryIdx(null)}
-                  className="w-full mt-4 py-3 bg-gradient-to-r from-blue-500 to-sky-400 hover:from-blue-600 hover:to-blue-500 text-white rounded-xl text-xs sm:text-sm font-black shadow-md cursor-pointer transition-colors"
-                >
-                  Tutup Rute & Kembali Perjalanan
-                </button>
+                  <div className="pt-8 border-t border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center">
+                        <Heart size={18} className="text-pink-400" fill="currentColor" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Kenangan Ke</p>
+                        <p className="text-xs font-black text-slate-700">{selectedMemoryIdx + 1} dari {memories.length}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

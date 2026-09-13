@@ -54,3 +54,21 @@ body {
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
+
+.paper-texture {
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(#3b82f6 0.5px, transparent 0.5px),
+    linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+    linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+  background-size: 20px 20px, 40px 40px, 40px 40px;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.clip-path-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
