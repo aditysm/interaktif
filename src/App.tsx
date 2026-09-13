@@ -17,7 +17,7 @@ import FadeInUp from "./components/FadeInUp";
 
 export default function App() {
   const [config, setConfig] = useState<AppConfig>(DEFAULT_CONFIG);
-  const [isUnlocked, setIsUnlocked] = useState(true);
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   // Load custom configurations on mount if they exist in localStorage
